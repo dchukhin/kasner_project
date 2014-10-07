@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', engine1_views.index),
     url(r'^kasner/$', engine1_views.kasner),
+    url(r'^add_form/$', engine1_views.add_form),
+    url(r'^add/$', engine1_views.add),
 )

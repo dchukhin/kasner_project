@@ -1,0 +1,18 @@
+<html>
+<head></head>
+<body>
+A form for adding to the Kasner DB of websites.
+
+<form action="/add/" method=POST>
+    {% csrf_token %}
+    <input type="text" name="name">
+    <input type="text" name="url">
+    <input type="decimal" name="number">
+    <input type="text" name="references">
+    <input type="text" name="referenced_by">
+    <input type="submit" value="Add to DB">
+</form>
+
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from models import Keyword, Website
+from django.template import RequestContext
 
 def index(request):
     return render(request, 'index.html')
@@ -13,3 +14,10 @@ def kasner(request):
     else:
         message='You did not search for anything! Try again.'
         return render (request, 'index.html', {'message': message})
+
+def add_form(request):
+    return render(request, 'add_form.html')
+
+def add(request):
+    return render(request, 'add_form.html', 
+            context_instance=RequestContext(request))
