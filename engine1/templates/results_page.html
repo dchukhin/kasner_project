@@ -1,0 +1,18 @@
+<html>
+<head></head>
+<body>
+Welcome to the results page.
+You searched: {{query}}.
+{% if websites %}
+    <p> Kasner found {{websites|length}} results: <p>
+
+    {% for website in websites %}
+    <p>{{website.name}} at {{website.url}} <br>
+    ________________________________________________________________
+    </p>
+    {% endfor %}
+{% else %}
+    <p> No results in our db for your search </p>
+{% endif %}
+</body>
+</html>
