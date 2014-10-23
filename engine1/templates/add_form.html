@@ -5,14 +5,14 @@ A form for adding to the Kasner DB of websites.
 
 <form action="/add/" method=POST>
     {% csrf_token %}
-    <input type="text" name="name">
-    <input type="text" name="url">
-    <input type="decimal" name="number">
-    <input type="text" name="references">
-    <input type="text" name="referenced_by">
+    Name:<input type="text" name="name"><br>
+    Url:<input type="text" name="url"><br>
+    Number:<input type="decimal" name="number"><br>
+    Words:<input type="text" name="words"><br>
+    References<input type="text" name="references"><br>
+    Referenced By:<input type="text" name="referenced_by"><br>
     <input type="submit" value="Add to DB">
 </form>
-
 
 </body>
 </html>
