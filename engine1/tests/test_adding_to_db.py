@@ -9,8 +9,6 @@ def w_driver(request):
     request.addfinalizer(driver.quit)
     return driver
 
-browser=webdriver.Firefox()
-
 @pytest.mark.easy
 def test_navigates_to_kasner(w_driver):
     w_driver.get('localhost:8000')
@@ -104,6 +102,4 @@ def test_update_website_already_in_db(w_driver):
     new_time_found=re.search(search_output, results)
 
     assert new_time_found != None
-
-#    browser.quit()
 
