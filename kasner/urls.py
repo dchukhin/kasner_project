@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^kasner/$', engine1_views.kasner),
     url(r'^add_form/$', engine1_views.add_form),
     url(r'^add/$', engine1_views.add),
+    url(r'^about$', engine1_views.about),
 )

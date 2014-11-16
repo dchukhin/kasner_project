@@ -6,6 +6,7 @@ from models import Website, Keyword
 
 from stl_converter import stl
 from blank_space_remover import bsr
+import twitter_attempt1
 
 def index(request):
     return render(request, 'index.html')
@@ -80,3 +81,7 @@ def add(request):
     else:
         return render(request, 'add_form.html', 
             context_instance=RequestContext(request))
+
+def about(request):
+    return render(request,'about.html',{'tweets':twitter_attempt1.search})
+
