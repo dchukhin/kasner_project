@@ -2,10 +2,6 @@ from selenium import webdriver
 from selenium. webdriver.common.keys import Keys
 import re
 import pytest
-from pyvirtualdisplay import Display
-
-display = Display(visible=0, size=(800,600))
-display.start()
 
 @pytest.fixture(scope="session")
 def w_driver(request):
@@ -52,5 +48,4 @@ def test_search_random_characters_results_are_None(w_driver):
 
     assert text_found != None
 
-display.stop()
 
