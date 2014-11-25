@@ -2,6 +2,10 @@ from selenium import webdriver
 from selenium. webdriver.common.keys import Keys
 import re
 import pytest
+from pyvirtualdisplay import Display
+
+display = Display(visible=0, size=(800,600))
+display.start()
 
 @pytest.fixture(scope="session")
 def w_driver(request):
@@ -27,7 +31,7 @@ def test_search_google_results_contain_google(w_driver):
 
     assert text_found != None
 
-def test_search_o_results_contain_google_and_yahoo():
+def test_search_o_results_contain_google_and_yahoo(w_driver):
     w_driver.get('localhost:8000')
     element = w_driver.find_element_by_name('query')
     element.send_keys('o' + Keys.RETURN)
@@ -38,7 +42,7 @@ def test_search_o_results_contain_google_and_yahoo():
 
     assert (google_found != None) or (yahoo_found != None)
 
-def test_search_random_characters_results_are_None():
+def test_search_random_characters_results_are_None(w_driver):
     w_driver.get('localhost:8000')
     element = w_driver.find_element_by_name('query')
     element.send_keys('!*(&$@' + Keys.RETURN)
@@ -48,5 +52,5 @@ def test_search_random_characters_results_are_None():
 
     assert text_found != None
 
-#    browser.quit()
+display.stop()
 
