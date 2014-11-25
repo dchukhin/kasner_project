@@ -4,7 +4,7 @@ from selenium import webdriver
 display = Display(visible=0, size=(800, 600))
 display.start()
 
-def test_aaa()
+def test_aaa():
     # now Firefox will run in a virtual display. 
     # you will not see the browser.
     browser = webdriver.Firefox()
