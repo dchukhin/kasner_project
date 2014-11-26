@@ -1,7 +1,7 @@
 from pyvirtualdisplay import Display
 from selenium import webdriver
 
-display = Display(visible=1, size=(800, 600))
+display = Display(visible=0, size=(800, 600))
 display.start()
 
 def test_aaa():
