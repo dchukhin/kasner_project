@@ -1,10 +1,13 @@
 from selenium import webdriver
 from selenium. webdriver.common.keys import Keys
+from xvfbwrapper import Xvfb
 import re
 import pytest
 
 @pytest.fixture(scope="session")
 def w_driver(request):
+    xvfb = Xvfb(width=1280, height=720)
+    xvfb.start()
     driver=webdriver.Firefox()
     request.addfinalizer(driver.quit)
     return driver
