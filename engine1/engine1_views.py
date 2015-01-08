@@ -81,8 +81,8 @@ def add(request):
     else:
         return render(request, 'add_form.html', 
             context_instance=RequestContext(request))
-"""
+
 def about(request):
     tweets = twitter_attempt1.search
     return render(request,'about.html',{'tweets':tweets})
-"""
+
