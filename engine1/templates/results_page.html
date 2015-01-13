@@ -8,7 +8,22 @@
     height: 20%;
     text-align: center;
 }
+div.container {
+position:relative;
+    text-align: center;
+    width: 100%;
+    background: white;
+}
+div.container1 {
+position:relative;
+    text-align: left;
+    width: 50%;
+    background: white;
+    float: left;
+    padding: 10px;
+    margin: 20px;
 
+}
 </style>
 </head>
 <body>
@@ -20,20 +35,24 @@
     </form>
 </div>
 
+<div class=container>
+    <div class=container1>
+        You searched: {{query}}
+        <br>
+        _______________________________________________________________________________
+        {% if websites %}
+            <h4><strong> Kasner found {{websites|length}} results: </strong></h4>
 
-You searched: {{query}}
-<br>
-_______________________________________________________________________________
-{% if websites %}
-    <h4><strong> Kasner found {{websites|length}} results: </strong></h4>
-
-    {% for website in websites %}
-    <p>{{website.name}} at <a href="http://{{website.url}}">{{website.url}} </a>
-    <br><br><br><br>
-    </p>
-    {% endfor %}
-{% else %}
-    <p> No results in our db for your search. </p>
-{% endif %}
+            {% for website in websites %}
+            <p>{{website.name}} at
+                <a href="http://{{website.url}}">{{website.url}} </a>
+            <br><br><br><br>
+            </p>
+            {% endfor %}
+        {% else %}
+            <p> No results in our db for your search. </p>
+        {% endif %}
+    </div>
+</div>
 </body>
 </html>
