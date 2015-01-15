@@ -3,7 +3,6 @@ from selenium.webdriver.common.keys import Keys
 from xvfbwrapper import Xvfb
 import re
 import pytest
-import pdb
 
 @pytest.fixture(scope="session")
 def w_driver(request):
@@ -115,7 +114,6 @@ def test_backgound_color(w_driver):
     #the background color is #000000, which maps to rgba(0, 0, 0, 1)
     expected_color = 'rgba(0, 0, 0, 1)'
     actual_color = element.value_of_css_property('background-color')
-    pdb.set_trace()
     assert(expected_color == actual_color)
     element=w_driver.find_element_by_class_name('container1')
     #the background color is grey, which maps to rgba(128, 128, 128, 1)
