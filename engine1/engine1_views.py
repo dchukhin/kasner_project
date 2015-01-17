@@ -2,11 +2,10 @@ from django.shortcuts import render
 from models import Keyword, Website
 from django.template import RequestContext
 
-from models import Website, Keyword
-
 from stl_converter import stl
 from blank_space_remover import bsr
 import twitter_attempt1
+from search_algorithm import algorithm
 
 def index(request):
     return render(request, 'index.html')
@@ -14,9 +13,10 @@ def index(request):
 def kasner(request):
     if 'query' in request.GET and request.GET['query']:
         q=request.GET['query']
-        websites=Website.objects.filter(name__icontains=q)
+        #use our search algorithm to get websites for results
+        websites = algorithm(request)
         return render (request, 'results_page.html', 
-                {'query' : q, 'websites' : websites})
+           {'query' : q, 'websites' : websites})
     else:
         message='You did not search for anything! Try again.'
         return render (request, 'index.html', {'message': message})
