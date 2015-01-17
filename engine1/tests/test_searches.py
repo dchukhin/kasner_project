@@ -31,7 +31,7 @@ def test_search_google(w_driver):
 
     assert text_found != None
 
-def test_search_o_results_contain_google_and_yahoo(w_driver):
+def test_search_o_results_do_not_contain_google_and_yahoo(w_driver):
     """Tests whether searching for 'o' yields google and yahoo in results"""
     w_driver.get('localhost:8000')
     element = w_driver.find_element_by_name('query')
@@ -41,7 +41,7 @@ def test_search_o_results_contain_google_and_yahoo(w_driver):
     google_found=re.search(r'Google', results)
     yahoo_found=re.search(r'Yahoo', results)
 
-    assert (google_found != None) or (yahoo_found != None)
+    assert (google_found = None) or (yahoo_found = None)
 
 def test_search_random_characters(w_driver):
     """Tests whether searching for random characters fails to yield matches"""
