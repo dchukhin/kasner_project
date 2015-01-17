@@ -20,7 +20,8 @@ def test_navigates_to_kasner(w_driver):
 
     assert(text_found != None)
 
-def test_search_google_results_contain_google(w_driver):
+def test_search_google(w_driver):
+    """Tests whether searching for google will resurn google.com as a result"""
     w_driver.get('localhost:8000')
     element = w_driver.find_element_by_name('query')
     element.send_keys('google' + Keys.RETURN)
@@ -31,6 +32,7 @@ def test_search_google_results_contain_google(w_driver):
     assert text_found != None
 
 def test_search_o_results_contain_google_and_yahoo(w_driver):
+    """Tests whether searching for 'o' yields google and yahoo in results"""
     w_driver.get('localhost:8000')
     element = w_driver.find_element_by_name('query')
     element.send_keys('o' + Keys.RETURN)
@@ -41,7 +43,8 @@ def test_search_o_results_contain_google_and_yahoo(w_driver):
 
     assert (google_found != None) or (yahoo_found != None)
 
-def test_search_random_characters_results_are_None(w_driver):
+def test_search_random_characters(w_driver):
+    """Tests whether searching for random characters fails to yield matches"""
     w_driver.get('localhost:8000')
     element = w_driver.find_element_by_name('query')
     element.send_keys('!*(&$@' + Keys.RETURN)
