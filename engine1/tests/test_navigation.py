@@ -73,9 +73,8 @@ def test_navigates_to_index_page_about_page_index_page(w_driver):
     assert(text_found2 != None)
     assert(text_found3 != None)
 
-<<<<<<< HEAD
-@pytest.mark.navigate
-def test_navigates_to_index_page_clicks_link_to_about_page_success(w_driver):
+def test_navigates_to_index_page_link_about_page(w_driver):
+    """Tests whether the link on index page to go to about page works."""
     w_driver.get('localhost:8000')
     
     element=w_driver.find_element_by_link_text('About our team').click()
@@ -84,8 +83,8 @@ def test_navigates_to_index_page_clicks_link_to_about_page_success(w_driver):
 
     assert(text_found != None)
 
-@pytest.mark.navigate
-def test_navigates_to_about_page_clicks_link_to_index_page_success(w_driver):
+def test_navigates_to_about_page_link_index_page(w_driver):
+    """Tests whether the link on about page to go to index page works."""
     w_driver.get('localhost:8000/about')
 
     element=w_driver.find_element_by_link_text('back to Kasner').click()
@@ -94,36 +93,56 @@ def test_navigates_to_about_page_clicks_link_to_index_page_success(w_driver):
 
     assert(text_found != None)
 
-@pytest.mark.navigate
 def test_navigates_to_index_page_then_about_page_then_index_page_success(w_driver):
+    """Tests whether the links between index page and about page work.
+    
+    1.) Navigate to index page, click link for about page, get about page info
+    2.) Click link for index page, get index page info
+    3.) Verify info we found is not None
+    """
+    #1.) Navigate to index page, click link for about page
     w_driver.get('localhost:8000')
 
     element=w_driver.find_element_by_link_text('About our team').click()
+    #find about page info
     results=w_driver.page_source
     text_found1=re.search(r'About the Kasner Search Engine',results)
 
+    #2.) Click link for index page
     element=w_driver.find_element_by_link_text('back to Kasner').click()
+    #find index page info
     results=w_driver.page_source
     text_found2=re.search(r'Welcome to the Kasner Micro Search Engine',results)
 
+    #3.) Verify info we found is not None 
     assert(text_found1 != None)
     assert(text_found2 != None)
 
-@pytest.mark.navigate
 def test_navigates_to_about_page_then_index_page_then_about_page_success(w_driver):
+    """Tests whether the links between index page and about page work.
+    
+    1.) Navigate to index page, click link for about page, get about page info
+    2.) Click link for index page, get index page info
+    3.) Verify info we found is not None
+    """
+    #1.) Navigate to about page, click link for index page
     w_driver.get('localhost:8000/about')
 
     element=w_driver.find_element_by_link_text('back to Kasner').click()
+    #find index page info
     results=w_driver.page_source
     text_found1=re.search(r'Welcome to the Kasner Micro Search Engine',results)
 
+    #2.) Click link for index page
     element=w_driver.find_element_by_link_text('About our team').click()
+    #find about page info
     results=w_driver.page_source
     text_found2=re.search(r'About the Kasner Search Engine',results)
 
+    #3.) Verify info we found is not None
     assert(text_found1 != None)
     assert(text_found2 != None)
-=======
+
 def test_background_image_loads(w_driver):
     """
     Test verifies that the background image loads on all user pages.
@@ -210,5 +229,4 @@ def test_backgound_color(w_driver):
     expected_color = 'rgba(255, 255, 255, 1)'
     actual_color = element.value_of_css_property('background-color')
     assert(expected_color == actual_color)
->>>>>>> styling
 
