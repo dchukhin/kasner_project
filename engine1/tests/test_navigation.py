@@ -12,7 +12,6 @@ def w_driver(request):
     request.addfinalizer(driver.quit)
     return driver
 
-@pytest.mark.navigate
 def test_navigates_to_index_page(w_driver):
     w_driver.get('localhost:8000')
 
@@ -20,7 +19,6 @@ def test_navigates_to_index_page(w_driver):
     text_found=re.search(r'Welcome to the Kasner Micro Search Engine', results)
     assert(text_found != None)
 
-@pytest.mark.navigate
 def test_navigates_to_about_page(w_driver):
     w_driver.get('localhost:8000/about')
 
@@ -28,29 +26,45 @@ def test_navigates_to_about_page(w_driver):
     text_found=re.search(r'About the Kasner Search Engine',results)
     assert(text_found != None)
 
-@pytest.mark.navigate
-def test_navigates_to_index_page_then_about_page(w_driver):
+def test_navigates_to_index_page_about_page(w_driver):
+    """Test navigating to index page, then change the url to the about page
+    
+    1.) Go to index page url
+    2.) Go to about page url
+    Note: this test does not test links between these two pages.
+    """
+    #Index Page
     w_driver.get('localhost:8000')
-
     results=w_driver.page_source
     text_found1=re.search(r'Welcome to the Kasner Micro Search Engine', results)
 
+    #About Page
     w_driver.get('localhost:8000/about')
     results=w_driver.page_source
     text_found2=re.search(r'About the Kasner Search Engine',results)
     
     assert(text_found1 != None and text_found2 != None)
 
-@pytest.mark.navigate
-def test_navigates_to_index_page_then_about_page_then_index_page(w_driver):
+def test_navigates_to_index_page_about_page_index_page(w_driver):
+    """
+    Test navigating to index page, then the about page, then the index page
+    
+    1.) go to index page url
+    2.) go to about page url
+    3.) go to index page url
+    Note: this test does not test links between these pages.
+    """
+    #Index Page
     w_driver.get('localhost:8000')
     results=w_driver.page_source
     text_found1=re.search(r'Welcome to the Kasner Micro Search Engine', results)
 
+    #About Page
     w_driver.get('localhost:8000/about')
     results=w_driver.page_source
     text_found2=re.search(r'About the Kasner Search Engine',results)
 
+    #Index Page
     w_driver.get('localhost:8000')
     results=w_driver.page_source
     text_found3=re.search(r'Welcome to the Kasner Micro Search Engine', results)
@@ -61,7 +75,7 @@ def test_navigates_to_index_page_then_about_page_then_index_page(w_driver):
 
 def test_background_image_loads(w_driver):
     """
-    Test verifies that the background image loads on all user pages
+    Test verifies that the background image loads on all user pages.
 
     User pages include:
     1.) index page
@@ -98,7 +112,6 @@ def test_background_image_loads(w_driver):
     #we get the value of the background image, which is a url to its source
     actual_image=element.value_of_css_property('background-image')
     assert(expected_image==actual_image)
-
 
 def test_backgound_color(w_driver):
     """
