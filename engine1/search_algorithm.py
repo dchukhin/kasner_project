@@ -5,7 +5,7 @@ from models import Keyword, Website
 def algorithm(request):
     q=request.GET['query']
     #1.) search for websites whose names match query exactly (case insensitive)
-    name_matches=Website.objects.filter(name__iexact=q)
+    name_matches=Website.objects.filter(name__iexact=q).order_by('-number')
     websites=list(name_matches)
 
     #2.) search for the wikipedia matches for the query
