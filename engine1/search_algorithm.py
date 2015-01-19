@@ -12,7 +12,11 @@ def algorithm(request):
     wikipedia_site=Website(name='Wikipedia Results', url=wikipedia_search)
     wikipedia_matches=[wikipedia_site]
 
-    websites=list(name_matches)+wikipedia_matches
+    #3.) search for facebook matches
+    facebook_search='www.facebook.com/public/'+q
+    facebook_site=Website(name='Facebook results', url=facebook_search)
+    facebook_matches=[facebook_site]
+    websites=list(name_matches)+wikipedia_matches+facebook_matches
     return websites
 
 
