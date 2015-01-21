@@ -54,9 +54,32 @@ def test_search_random_characters(w_driver):
 
     assert text_found != None
 
+@pytest.mark.whataaa
 def test_search_case_insensitive(w_driver):
     """Tests whether case insensitive search yields correct results.
     
+    1.) Search for 'yahoo', find 'Yahoo' in results
+    2.) Search for Yahoo, find 'Yahoo' in results
+    3.) Confirm that results of #1 and #2 are the same
+    """
+    w_driver.get('localhost:8000')
+    import pdb
+    pdb.set_trace()
+    element = w_driver.find_element_by_name('query')
+    element.send_keys('yahoo' + Keys.RETURN)
+    results1=w_driver.page_source
+    text_found1=re.search(r'Yahoo', results1)
+    
+    element = w_driver.find_element_by_name('query')
+    element.send_keys('Yahoo' + Keys.RETURN)
+    results2=w_driver.page_source
+    text_found2=re.search(r'Yahoo', results2)
+
+    assert results1 != results2
+
+def test_search_keyword(w_driver):
+    """Tests whether a search for a keyword yields results with that keyword.
+            
     1.) Search for 'yahoo', find 'Yahoo' in results
     2.) Search for Yahoo, find 'Yahoo' in results
     3.) Confirm that results of #1 and #2 are not the same
@@ -65,11 +88,11 @@ def test_search_case_insensitive(w_driver):
     element = w_driver.find_element_by_name('query')
     element.send_keys('yahoo' + Keys.RETURN)
     results1=w_driver.page_source
-    
+
     element = w_driver.find_element_by_name('query')
     element.send_keys('Yahoo' + Keys.RETURN)
     results2=w_driver.page_source
-    
-    assert results1 != results2
+
+    assert text_found1 == text_found2
 
 
