@@ -14,7 +14,19 @@ def algorithm(request):
     wikipedia_matches=wikipedia_site
     websites.append(wikipedia_matches)
 
-    #3.) search for facebook matches
+    #3.) search for keyword matches
+    #if keyword exists in db, we search for all websites that reference it.
+    try:
+        kw=Keyword.objects.get(name=q)
+        kw_matches=Website.objects.filter(words=kw).order_by('-number')
+        #make kw_matches a list
+        kw_matches=list(kw_matches)
+    #if keyword does not exist, then there are no matches for it
+    except:
+        kw_matches=[]
+    websites=websites+kw_matches
+
+    #4.) search for facebook matches
     facebook_search='www.facebook.com/public/'+q
     facebook_site=Website(name='Facebook results', url=facebook_search)
     facebook_matches=facebook_site  
