@@ -181,3 +181,67 @@ def test_name_matches_ranked_higher_than_keyword_matches(w_driver):
     assert (matches5<matches_kw_1)
     assert (matches5<matches_kw_2)
 
+@pytest.mark.new
+def test_wikipedia_matches_ranked_higher_than_keyword_matches(w_driver):
+    """
+    Tests if website with name match is ranked higher than keyword matches.
+
+    1.) Add 2 websites into db with keyword=test site
+    2.) Do a Kasner search and verify that the websites with keyword=tests is
+    ranked higher than the wikipedia site.
+    """
+    keyword='test site'
+    w_driver.get('localhost:8000/add_form')
+    
+    #1.) Add 2 websites into db with keyword=test site
+    name_element1=w_driver.find_element_by_name('name')
+    name_element1.send_keys('first one')
+    url_element1=w_driver.find_element_by_name('url')
+    url_element1.send_keys('www.firstsite5.com')
+    number_element1=w_driver.find_element_by_name('number')
+    number_element1.send_keys(5)
+    words_element1=w_driver.find_element_by_name('words')
+    words_element1.send_keys(keyword)
+    words_element1.send_keys(Keys.RETURN)
+
+    name_element2=w_driver.find_element_by_name('name')
+    name_element2.send_keys('first one')
+    url_element2=w_driver.find_element_by_name('url')
+    url_element2.send_keys('www.secondsite5.com')
+    number_element2=w_driver.find_element_by_name('number')
+    number_element2.send_keys(5)
+    words_element2=w_driver.find_element_by_name('words')
+    words_element2.send_keys(keyword)
+    words_element2.send_keys(Keys.RETURN)
+
+    #2.) Do a Kasner search and verify that the websites with keyword=tests is
+    #ranked higher than the wikipedia site.
+    w_driver.get('localhost:8000')
+    element = w_driver.find_element_by_name('query')
+    element.send_keys(keyword + Keys.RETURN)
+
+    results=w_driver.page_source
+    #results should list wikipedia site before keyword match results
+    text_wikip='wikipedia.org/wiki/'+keyword
+    #find the character that begins the reference to wikipedia site 
+    matches_wikip = [matches.start()
+    for matches in re.finditer(r'{}'.format(re.escape(text_wikip)), results)]
+    #there are 2 references for wikipedia site; we get the first.
+    matches_wikip=matches_wikip[0]
+
+    text_kw_1='www.firstsite5.com'
+    #find the character that begins the reference to www.firstsite5.com
+    matches_kw_1 = [matches.start()
+    for matches in re.finditer(r'{}'.format(re.escape(text_kw_1)),results)]
+    #there are 2 references for the url; we get the first.
+    matches_kw_1=matches_kw_1[0]
+
+    text_kw_2='www.secondsite5.com'
+    #find the character that begins the reference to www.firstsite5.com
+    matches_kw_2 = [matches.start()
+    for matches in re.finditer(r'{}'.format(re.escape(text_kw_2)),results)]
+    #there are 2 references for the url; we get the first.
+    matches_kw_2=matches_kw_2[0]
+    
+    assert (matches_wikip<matches_kw_1)
+    assert (matches_wikip<matches_kw_2)
