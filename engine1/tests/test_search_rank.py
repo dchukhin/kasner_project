@@ -181,7 +181,6 @@ def test_name_matches_ranked_higher_than_keyword_matches(w_driver):
     assert (matches5<matches_kw_1)
     assert (matches5<matches_kw_2)
 
-@pytest.mark.new
 def test_wikipedia_matches_ranked_higher_than_keyword_matches(w_driver):
     """
     Tests if website with name match is ranked higher than keyword matches.
@@ -245,3 +244,36 @@ def test_wikipedia_matches_ranked_higher_than_keyword_matches(w_driver):
     
     assert (matches_wikip<matches_kw_1)
     assert (matches_wikip<matches_kw_2)
+
+def test_wikipedia_matches_ranked_higher_than_facebook(w_driver):
+    """
+    Tests if website with name match are ranked higher than wikipedia matches.
+
+    1.) Do a Kasner search for some word
+    2.) Verify that the wikipedia page is ranked higher than the facebook page
+    """
+    #1.) Do a Kasner search for some word
+    w_driver.get('localhost:8000')
+    query='sports'
+    element = w_driver.find_element_by_name('query')
+    element.send_keys(query + Keys.RETURN)
+
+    #2.) Verify that wikipedia page is ranked higher than the facebook page.
+    results=w_driver.page_source
+    #results should list testsitewithnumber5.com before wikipedia result
+    text_wikip='wikipedia.org/wiki/'+query
+    #find the character that begins the reference to wikipedia page
+    matches_wikip = [matches.start()
+    for matches in re.finditer(r'{}'.format(re.escape(text_wikip)), results)]
+    #there are 2 references for testsitewithnumber6.com; we get the first.
+    matches_wikip=matches_wikip[0]
+
+    text_fb='www.facebook.com/public/'+query
+    #find the character that begins the reference to facebook page
+    matches_fb = [matches.start()
+    for matches in re.finditer(r'{}'.format(re.escape(text_fb)), results)]
+    #there are 2 references for testsitewithnumber6.com; we get the first.
+    matches_fb=matches_fb[0]
+
+    #wikipedia page should occur first; its reference number should be smaller
+    assert (matches_wikip<matches_fb)
