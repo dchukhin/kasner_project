@@ -86,3 +86,5 @@ def about(request):
     tweets = twitter_attempt1.search
     return render(request,'about.html',{'tweets':tweets})
 
+def another_page(request):
+    return render(request, 'another_page.html')
