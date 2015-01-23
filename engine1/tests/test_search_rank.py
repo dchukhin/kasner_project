@@ -108,3 +108,76 @@ def test_name_matches_ranked_higher_than_wikipedia(w_driver):
     #matches5 should occur first, so its reference character should be smaller
     assert (matches5<matches_wikip)
 
+def test_name_matches_ranked_higher_than_keyword_matches(w_driver):
+    """
+    Tests if website with name match are ranked higher than keyword matches.
+
+    1.) Add a test website into db with name=test site
+    2.) Add 2 websites into db with keyword=test site
+    3.) Do a Kasner search and verify that the website with name=test is
+    ranked higher than the websites with keyword=tests.
+    """
+    w_driver.get('localhost:8000/add_form')
+    #1.) Add a test website into db with name=test
+    name_element=w_driver.find_element_by_name('name')
+    name_element.send_keys('test site')
+    url_element=w_driver.find_element_by_name('url')
+    url_element.send_keys('www.testsitewithnumber5.com')
+    number_element=w_driver.find_element_by_name('number')
+    number_element.send_keys(5)
+    number_element.send_keys(Keys.RETURN)
+
+    #2.) Add 2 websites into db with keyword=test site
+    name_element1=w_driver.find_element_by_name('name')
+    name_element1.send_keys('first one')
+    url_element1=w_driver.find_element_by_name('url')
+    url_element1.send_keys('www.firstsite5.com')
+    number_element1=w_driver.find_element_by_name('number')
+    number_element1.send_keys(5)
+    words_element1=w_driver.find_element_by_name('words')
+    words_element1.send_keys('test site')
+    words_element1.send_keys(Keys.RETURN)
+
+    name_element2=w_driver.find_element_by_name('name')
+    name_element2.send_keys('first one')
+    url_element2=w_driver.find_element_by_name('url')
+    url_element2.send_keys('www.secondsite5.com')
+    number_element2=w_driver.find_element_by_name('number')
+    number_element2.send_keys(5)
+    words_element2=w_driver.find_element_by_name('words')
+    words_element2.send_keys('test site')
+    words_element2.send_keys(Keys.RETURN)
+
+    #3.) Do a Kasner search and verify that the website with name=test is
+    #ranked higher than the websites with keyword=tests.
+    w_driver.get('localhost:8000')
+    element = w_driver.find_element_by_name('query')
+    element.send_keys('test site' + Keys.RETURN)
+
+    results=w_driver.page_source
+    #results should list testsitewithnumber5.com before keyword match results
+    text5='www.testsitewithnumber5.com'
+    #find the character that begins the reference to testsitewithnumber5.com
+    matches5 = [matches.start()
+    for matches in re.finditer(r'{}'.format(re.escape(text5)), results)]
+    #there are 2 references for testsitewithnumber6.com; we get the first.
+    matches5=matches5[0]
+
+    text_kw_1='www.firstsite5.com'
+    #find the character that begins the reference to www.firstsite5.com
+    matches_kw_1 = [matches.start()
+    for matches in re.finditer(r'{}'.format(re.escape(text_kw_1)),results)]
+    #there are 2 references for the url; we get the first.
+    matches_kw_1=matches_kw_1[0]
+
+    text_kw_2='www.secondsite5.com'
+    #find the character that begins the reference to www.firstsite5.com
+    matches_kw_2 = [matches.start()
+    for matches in re.finditer(r'{}'.format(re.escape(text_kw_2)),results)]
+    #there are 2 references for the url; we get the first.
+    matches_kw_2=matches_kw_2[0]
+
+    #www.testsitewithnumber5.com should occur first
+    assert (matches5<matches_kw_1)
+    assert (matches5<matches_kw_2)
+
