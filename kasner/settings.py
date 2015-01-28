@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'engine1',
+    'static_precompiler',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,8 +82,17 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+PROJECT_DIR = os.path.dirname(__file__)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_DIR,'../engine1/static/engine1/'),
+)  
+
 STATIC_URL = '/static/'
+
+STATIC_ROOT = '/static/'
