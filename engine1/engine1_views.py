@@ -6,6 +6,7 @@ from stl_converter import stl
 from blank_space_remover import bsr
 import twitter_attempt1
 from search_algorithm import algorithm
+from find_browser import find_browser
 
 def index(request):
     return render(request, 'index.html')
@@ -87,4 +88,6 @@ def about(request):
     return render(request,'about.html',{'tweets':tweets})
 
 def another_page(request):
-    return render(request, 'another_page.html')
+    browser=find_browser(request)
+    aaa=request.META['HTTP_USER_AGENT']
+    return render(request, 'another_page.html', {'browser': browser, 'aaa':aaa})

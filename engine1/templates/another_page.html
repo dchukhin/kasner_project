@@ -1,6 +1,6 @@
 <html>
 <head>
-<link rel='stylesheet' href='{{STATIC_URL}}/engine1/b.css'>
+<link rel='stylesheet' href='{{STATIC_URL}}/engine1/another_page_{{browser}}.css'>
 </head>
 <body>
 Another page.
@@ -11,6 +11,8 @@ Another page.
 </p>
 
 <p>Another paragraph. <br>
+You are using: {{browser}}
+<br>aaa is: {{aaa}}
 </p>
 </body>
 </html>
