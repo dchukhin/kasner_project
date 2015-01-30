@@ -12,6 +12,16 @@ def w_driver(request):
     request.addfinalizer(driver.quit)
     return driver
 
+#for a few tests we use Chrome instead of Firefox
+@pytest.fixture(scope="session")
+def chrome_driver(request):
+    xvfb = Xvfb(width=1280, height=720)
+    xvfb.start()
+    driver=webdriver.Chrome('/usr/bin/chromedriver')
+    request.addfinalizer(driver.quit)
+    return driver
+
+
 def test_navigates_to_index_page(w_driver):
     w_driver.get('localhost:8000')
 
@@ -229,4 +239,46 @@ def test_backgound_color(w_driver):
     expected_color = 'rgba(255, 255, 255, 1)'
     actual_color = element.value_of_css_property('background-color')
     assert(expected_color == actual_color)
+
+def test_correct_css_file_loads(w_driver, chrome_driver):
+    """
+    Tests whether the correct CSS loads for a single page.
+
+    The CSS loaded for the page should match the browser. So, for Mozilla 
+    Firefox the CSS loaded should end in firefox.css, for Google Chrome it 
+    should end in chrome.css, and so on.
+    Test verifies that 
+    1.) for Firefox the page loaded has:
+        i) css that ends in firefox.css
+        ii) dark red (#cd0000 or rgba(255,0,0,1) as the color in the paragraph.
+
+    2.) for Chrome the page loaded has:
+        i) css that ends in chrome.css
+        ii) blue (#0000ff or rgba(0,0,255,1) as the color in the paragraph.
+    """
+    w_driver.get('localhost:8000/another_page')
+
+    #1) i) Test verifies that CSS loaded ends in firefox.css
+    results=w_driver.page_source
+    css_found=re.search(r'firefox.css',results)
+    
+    #1) ii) Test verifies that paragraph is dark red (rgba(255,0,0,1))
+    p=w_driver.find_element_by_tag_name('p')
+    p_color=p.value_of_css_property('color')
+    
+    assert (css_found != None)
+    assert (p_color=='rgba(205, 0, 0, 1)')
+
+    chrome_driver.get('localhost:8000/another_page')
+
+    #2) i) Test verifies that CSS loaded ends in chrome.css
+    results=chrome_driver.page_source
+    css_found=re.search(r'chrome.css',results)
+                    
+    #2) ii) Test verifies that paragraph is blue (rgba(0,0,255,1))
+    p=chrome_driver.find_element_by_tag_name('p')
+    p_color=p.value_of_css_property('color')
+    
+    assert (css_found != None)
+    assert (p_color=='rgba(0, 0, 255, 1)')
 
