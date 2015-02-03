@@ -9,7 +9,8 @@ from search_algorithm import algorithm
 from find_browser import find_browser
 
 def index(request):
-    return render(request, 'index.html')
+    browser=find_browser(request)
+    return render(request, 'index.html', {'browser':browser})
 
 def kasner(request):
     if 'query' in request.GET and request.GET['query']:
