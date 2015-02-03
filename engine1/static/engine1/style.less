@@ -1,0 +1,45 @@
+@grey: #d8d8d8;
+@black: #000000;
+
+#banner {
+    background-image:url('./banner.jpg');
+    width:100%;
+    height: 75%;
+    background-size: cover;
+    text-align: center;
+    color: @grey;
+    background-position: center center;
+    text-align: center;
+}
+div.container-wide{
+    position:relative;
+    text-align:center;
+    width: 100%;
+    background: @black;
+}
+
+div.container-thirds {
+    width: 30%;
+    height: 30%;
+    position: relative;
+    background: @grey;
+    display:inline-block;
+    margin: 1%;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: @grey;
+}
+
+div.container-thirds p {
+    padding: 10%;
+    background: @grey;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 40%;
+    height: 10%;
+    margin-right:10%;
+    transform: translate(-50%, -90%)
+}
+
