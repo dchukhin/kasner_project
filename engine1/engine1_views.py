@@ -86,7 +86,8 @@ def add(request):
 
 def about(request):
     tweets = twitter_attempt1.search
-    return render(request,'about.html',{'tweets':tweets})
+    browser = find_browser(request)
+    return render(request,'about.html',{'tweets':tweets, 'browser':browser})
 
 def another_page(request):
     browser=find_browser(request)
