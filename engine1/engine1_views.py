@@ -17,8 +17,9 @@ def kasner(request):
         q=request.GET['query']
         #use our search algorithm to get websites for results
         websites = algorithm(request)
+        browser=find_browser(request)
         return render (request, 'results_page.html', 
-           {'query' : q, 'websites' : websites})
+                {'query' : q, 'websites' : websites, 'browser':browser})
     else:
         message='You did not search for anything! Try again.'
         return render (request, 'index.html', {'message': message})

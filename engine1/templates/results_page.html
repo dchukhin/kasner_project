@@ -1,33 +1,10 @@
 <html>
 <head>
 <link rel="stylesheet" href="../static/engine1/font-awesome-4.2.0/css/font-awesome.css">
-<style>
-#banner {
-    background-image:url('../static/engine1/banner.jpg');
-    width:100%;
-    height: 20%;
-    text-align: center;
-}
-div.container {
-position:relative;
-    text-align: center;
-    width: 100%;
-    background: white;
-}
-div.container1 {
-position:relative;
-    text-align: left;
-    width: 50%;
-    background: white;
-    float: left;
-    padding: 10px;
-    margin: 20px;
-
-}
-</style>
+<link rel="stylesheet" href="{{STATIC_URL}}/engine1/style_{{browser}}.css">
 </head>
 <body>
-<div id=banner>
+<div id=banner-with-searchbox>
     <br><br>
     <form action="/kasner/" method="get">
         <input type="text" name="query" value={{query}}>
