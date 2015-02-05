@@ -24,11 +24,10 @@
   text-align: center;
   border-radius: 5px;
   -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(10%, transparent), to(rgba(255, 255, 255, 0.5)));
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 div.container-wide {
   position: relative;
-  text-align: center;
   width: 100%;
   background: #000000;
 }
@@ -54,4 +53,16 @@ div.container-thirds p {
   height: 10%;
   margin-right: 10%;
   transform: translate(-50%, -90%);
+}
+div.container-halves {
+  width: 46.5%;
+  height: 40%;
+  position: relative;
+  background: #d8d8d8;
+  display: inline-block;
+  margin: 0.5%;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d8d8d8;
 }
