@@ -17,6 +17,15 @@
   text-align: center;
   border-radius: 5px;
 }
+#banner-with-searchbox-and-reflection {
+  background-image: url('banner.jpg');
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(10%, transparent), to(rgba(255, 255, 255, 0.5)));
+  margin-bottom: 10%;
+}
 div.container-wide {
   position: relative;
   text-align: center;

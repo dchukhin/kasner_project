@@ -8,6 +8,13 @@
     border-radius: @radius;
 }
 
+.reflect (@length: 50%, @opacity: 1.0){
+    -webkit-box-reflect: below 0px 
+    -webkit-gradient(linear, left top, left bottom, from(transparent), 
+        color-stop(@length, transparent), to(rgba(255,255,255,@opacity)));
+}
+
+
 #banner {
     background-image:url('./banner.jpg');
     width:100%;
@@ -26,6 +33,17 @@
     text-align: center;
     .border-radius();
 }
+
+#banner-with-searchbox-and-reflection {
+    background-image:url('./banner.jpg');
+    width:100%;
+    height: 20%;
+    text-align: center;
+    .border-radius();
+    .reflect(10%, 0.5);
+    margin-bottom: 10%;
+}
+                        
 
 div.container-wide{
     position:relative;
@@ -58,4 +76,3 @@ div.container-thirds p {
     margin-right:10%;
     transform: translate(-50%, -90%)
 }
-
