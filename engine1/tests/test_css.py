@@ -97,3 +97,44 @@ def test_correct_css_file_loads(w_driver, chrome_driver):
     results=chrome_driver.page_source
     css_found=re.search(r'chrome.css',results)
     assert (css_found != None)
+
+def test_background_image_loads(w_driver):
+    """
+    Test verifies that the background image loads on all user pages.
+
+    User pages include:
+    1.) index page
+    2.) results page
+    3.) about page
+    """
+    #1.) Index Page
+    w_driver.get('localhost:8000')
+    #the url to our background image
+    expected_image='url("http://localhost:8000/static/engine1/banner.jpg")'
+    element = w_driver.find_element_by_id('banner')
+    #we get the value of the background image, which is a url to its source
+    actual_image=element.value_of_css_property('background-image')
+    assert(expected_image==actual_image)
+   
+    #2.) Results Page
+    w_driver.get('localhost:8000')
+    #we search for something to pull up the results page
+    element = w_driver.find_element_by_name('query')
+    element.send_keys('o' + Keys.RETURN)
+   
+    #the url to our background image
+    expected_image='url("http://localhost:8000/static/engine1/banner.jpg")'
+    element = w_driver.find_element_by_id('banner')
+    #we get the value of the background image, which is a url to its source
+    actual_image=element.value_of_css_property('background-image')
+    assert(expected_image==actual_image)
+
+    #3.) About Page
+    w_driver.get('localhost:8000/about')
+    #the url to our background image
+    expected_image='url("http://localhost:8000/static/engine1/banner.jpg")'
+    element = w_driver.find_element_by_id('banner')
+    #we get the value of the background image, which is a url to its source
+    actual_image=element.value_of_css_property('background-image')
+    assert(expected_image==actual_image)
+
