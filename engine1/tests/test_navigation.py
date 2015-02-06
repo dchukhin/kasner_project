@@ -38,7 +38,7 @@ def test_navigates_to_about_page(w_driver):
 
 def test_navigates_to_index_page_about_page(w_driver):
     """Test navigating to index page, then change the url to the about page
-    
+   
     1.) Go to index page url
     2.) Go to about page url
     Note: this test does not test links between these two pages.
@@ -52,13 +52,13 @@ def test_navigates_to_index_page_about_page(w_driver):
     w_driver.get('localhost:8000/about')
     results=w_driver.page_source
     text_found2=re.search(r'About the Kasner Search Engine',results)
-    
+   
     assert(text_found1 != None and text_found2 != None)
 
 def test_navigates_to_index_page_about_page_index_page(w_driver):
     """
     Test navigating to index page, then the about page, then the index page
-    
+   
     1.) go to index page url
     2.) go to about page url
     3.) go to index page url
@@ -86,7 +86,7 @@ def test_navigates_to_index_page_about_page_index_page(w_driver):
 def test_navigates_to_index_page_link_about_page(w_driver):
     """Tests whether the link on index page to go to about page works."""
     w_driver.get('localhost:8000')
-    
+   
     element=w_driver.find_element_by_link_text('About our team').click()
     results=w_driver.page_source
     text_found=re.search(r'About the Kasner Search Engine',results)
@@ -105,7 +105,7 @@ def test_navigates_to_about_page_link_index_page(w_driver):
 
 def test_navigates_to_index_page_then_about_page_then_index_page_success(w_driver):
     """Tests whether the links between index page and about page work.
-    
+   
     1.) Navigate to index page, click link for about page, get about page info
     2.) Click link for index page, get index page info
     3.) Verify info we found is not None
@@ -124,13 +124,13 @@ def test_navigates_to_index_page_then_about_page_then_index_page_success(w_drive
     results=w_driver.page_source
     text_found2=re.search(r'Welcome to the Kasner Micro Search Engine',results)
 
-    #3.) Verify info we found is not None 
+    #3.) Verify info we found is not None
     assert(text_found1 != None)
     assert(text_found2 != None)
 
 def test_navigates_to_about_page_then_index_page_then_about_page_success(w_driver):
     """Tests whether the links between index page and about page work.
-    
+   
     1.) Navigate to index page, click link for about page, get about page info
     2.) Click link for index page, get index page info
     3.) Verify info we found is not None
@@ -170,13 +170,13 @@ def test_background_image_loads(w_driver):
     #we get the value of the background image, which is a url to its source
     actual_image=element.value_of_css_property('background-image')
     assert(expected_image==actual_image)
-    
+   
     #2.) Results Page
     w_driver.get('localhost:8000')
     #we search for something to pull up the results page
     element = w_driver.find_element_by_name('query')
     element.send_keys('o' + Keys.RETURN)
-    
+   
     #the url to our background image
     expected_image='url("http://localhost:8000/static/engine1/banner.jpg")'
     element = w_driver.find_element_by_id('banner')
@@ -239,46 +239,3 @@ def test_backgound_color(w_driver):
     expected_color = 'rgba(255, 255, 255, 1)'
     actual_color = element.value_of_css_property('background-color')
     assert(expected_color == actual_color)
-
-def test_correct_css_file_loads(w_driver, chrome_driver):
-    """
-    Tests whether the correct CSS loads for a single page.
-
-    The CSS loaded for the page should match the browser. So, for Mozilla 
-    Firefox the CSS loaded should end in firefox.css, for Google Chrome it 
-    should end in chrome.css, and so on.
-    Test verifies that 
-    1.) for Firefox the page loaded has:
-        i) css that ends in firefox.css
-        ii) dark red (#cd0000 or rgba(255,0,0,1) as the color in the paragraph.
-
-    2.) for Chrome the page loaded has:
-        i) css that ends in chrome.css
-        ii) blue (#0000ff or rgba(0,0,255,1) as the color in the paragraph.
-    """
-    w_driver.get('localhost:8000/another_page')
-
-    #1) i) Test verifies that CSS loaded ends in firefox.css
-    results=w_driver.page_source
-    css_found=re.search(r'firefox.css',results)
-    
-    #1) ii) Test verifies that paragraph is dark red (rgba(255,0,0,1))
-    p=w_driver.find_element_by_tag_name('p')
-    p_color=p.value_of_css_property('color')
-    
-    assert (css_found != None)
-    assert (p_color=='rgba(205, 0, 0, 1)')
-
-    chrome_driver.get('localhost:8000/another_page')
-
-    #2) i) Test verifies that CSS loaded ends in chrome.css
-    results=chrome_driver.page_source
-    css_found=re.search(r'chrome.css',results)
-                    
-    #2) ii) Test verifies that paragraph is blue (rgba(0,0,255,1))
-    p=chrome_driver.find_element_by_tag_name('p')
-    p_color=p.value_of_css_property('color')
-    
-    assert (css_found != None)
-    assert (p_color=='rgba(0, 0, 255, 1)')
-
