@@ -34,8 +34,6 @@ def add(request):
         url=request.POST['url']
         number=request.POST['number']
         keywords=request.POST['words']
-        references=request.POST['references']
-        referenced_by=request.POST['referenced_by']
 
         #if the website already exists, then we update it. Otherwise,
         #we create a new one
@@ -59,8 +57,6 @@ def add(request):
         #and separate into separate entries in a list, rather than just
         #a string
         keywords=stl(keywords)
-        references=stl(references)
-        referenced_by=stl(referenced_by)
 
         #add the keywords that describe this Website
         for keyword in keywords:
@@ -75,10 +71,6 @@ def add(request):
                 k1.save()
                 #add this word to the Website
                 w1.words.add(k1)        
-        """
-        @TODO:
-        #add the references from the website
-        """
         return render(request, 'add_form.html',
                     context_instance=RequestContext(request))
 
