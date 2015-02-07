@@ -21,7 +21,6 @@ def chrome_driver(request):
     request.addfinalizer(driver.quit)
     return driver
 
-@pytest.mark.new
 def test_correct_css_file_loads(w_driver, chrome_driver):
     """
     Tests whether the correct CSS loads for a single page.
@@ -137,4 +136,212 @@ def test_background_image_loads(w_driver):
     #we get the value of the background image, which is a url to its source
     actual_image=element.value_of_css_property('background-image')
     assert(expected_image==actual_image)
+
+def test_div_rounded_corners(w_driver, chrome_driver):
+    """Tests if div elements have rounded corners.
+    Test verifies rounded corners for:
+    1.) Firefox
+        a) 'container-thirds' div elements on the index page
+        b) banner with searchbox on about page
+        c) 'container-halves' div elements on about page
+        d) banner with searchbox on results page
+    2.) Chrome
+        a) 'container-thirds' div elements on the index page
+        b) banner with searchbox and reflection on about page
+        c) 'container-halves' div elements on about page
+        d) banner with searchbox and reflection on results page
+    """
+    #1.) Firefox
+    w_driver.get('localhost:8000')
+    #a) 'div-thirds' elements on the index page
+    element=w_driver.find_element_by_class_name('container-thirds')
+    expected_value='5px'
+    #actual border-radius values are top-left, top-right, and so on
+    actual_val_t_l=element.value_of_css_property('border-top-left-radius')
+    actual_val_t_r=element.value_of_css_property('border-top-right-radius')
+    actual_val_b_r=element.value_of_css_property('border-bottom-right-radius')
+    actual_val_b_l=element.value_of_css_property('border-bottom-left-radius')
+    
+    actual_vals=[actual_val_t_l,actual_val_t_r,actual_val_b_r,actual_val_b_l]
+    for val in actual_vals:
+        assert (expected_value == val)
+
+    #b) banner with searchbox on about page
+    w_driver.get('localhost:8000/about')
+    element=w_driver.find_element_by_id('banner-with-searchbox-firefox')
+    expected_value='5px'
+    #actual border-radius values are top-left, top-right, and so on
+    actual_val_t_l=element.value_of_css_property('border-top-left-radius')
+    actual_val_t_r=element.value_of_css_property('border-top-right-radius')
+    actual_val_b_r=element.value_of_css_property('border-bottom-right-radius')
+    actual_val_b_l=element.value_of_css_property('border-bottom-left-radius')
+
+    actual_vals=[actual_val_t_l,actual_val_t_r,actual_val_b_r,actual_val_b_l]
+    for val in actual_vals:
+        assert (expected_value == val)
+
+    #c) 'div-halves' elements on about page
+    element=w_driver.find_element_by_class_name('container-halves')
+    expected_value='5px'
+    #actual border-radius values are top-left, top-right, and so on
+    actual_val_t_l=element.value_of_css_property('border-top-left-radius')
+    actual_val_t_r=element.value_of_css_property('border-top-right-radius')
+    actual_val_b_r=element.value_of_css_property('border-bottom-right-radius')
+    actual_val_b_l=element.value_of_css_property('border-bottom-left-radius')
+
+    actual_vals=[actual_val_t_l,actual_val_t_r,actual_val_b_r,actual_val_b_l]
+    for val in actual_vals:
+        assert (expected_value == val)
+
+    #d) banner with searchbox on results page
+    w_driver.get('localhost:8000')
+    #we search for something to pull up the results page
+    element = w_driver.find_element_by_name('query')
+    element.send_keys('o' + Keys.RETURN)
+
+    element=w_driver.find_element_by_id('banner-with-searchbox-firefox')
+    expected_value='5px'
+    #actual border-radius values are top-left, top-right, and so on
+    actual_val_t_l=element.value_of_css_property('border-top-left-radius')
+    actual_val_t_r=element.value_of_css_property('border-top-right-radius')
+    actual_val_b_r=element.value_of_css_property('border-bottom-right-radius')
+    actual_val_b_l=element.value_of_css_property('border-bottom-left-radius')
+
+    actual_vals=[actual_val_t_l,actual_val_t_r,actual_val_b_r,actual_val_b_l]
+    for val in actual_vals:
+        assert (expected_value == val)
+
+    #2.) Chrome
+    #a) 'container-thirds' div elements on the index page
+    chrome_driver.get('localhost:8000')
+    element=chrome_driver.find_element_by_class_name('container-thirds')
+    expected_value='5px'
+    #actual border-radius values are top-left, top-right, and so on
+    actual_val_t_l=element.value_of_css_property('border-top-left-radius')
+    actual_val_t_r=element.value_of_css_property('border-top-right-radius')
+    actual_val_b_r=element.value_of_css_property('border-bottom-right-radius')
+    actual_val_b_l=element.value_of_css_property('border-bottom-left-radius')
+
+    actual_vals=[actual_val_t_l,actual_val_t_r,actual_val_b_r,actual_val_b_l]
+    for val in actual_vals:
+        assert (expected_value == val)
+
+    #b) banner with searchbox and reflection on about page
+    chrome_driver.get('localhost:8000/about')
+    element=chrome_driver.find_element_by_id('banner-with-searchbox-chrome')
+    expected_value='5px'
+    #actual border-radius values are top-left, top-right, and so on
+    actual_val_t_l=element.value_of_css_property('border-top-left-radius')
+    actual_val_t_r=element.value_of_css_property('border-top-right-radius')
+    actual_val_b_r=element.value_of_css_property('border-bottom-right-radius')
+    actual_val_b_l=element.value_of_css_property('border-bottom-left-radius')
+
+    actual_vals=[actual_val_t_l,actual_val_t_r,actual_val_b_r,actual_val_b_l]
+    for val in actual_vals:
+        assert (expected_value == val)
+    #c) 'container-halves' div elements on about page
+    chrome_driver.get('localhost:8000/about')
+    element=chrome_driver.find_element_by_class_name('container-halves')
+    expected_value='5px'
+    #actual border-radius values are top-left, top-right, and so on
+    actual_val_t_l=element.value_of_css_property('border-top-left-radius')
+    actual_val_t_r=element.value_of_css_property('border-top-right-radius')
+    actual_val_b_r=element.value_of_css_property('border-bottom-right-radius')
+    actual_val_b_l=element.value_of_css_property('border-bottom-left-radius')
+
+    actual_vals=[actual_val_t_l,actual_val_t_r,actual_val_b_r,actual_val_b_l]
+    for val in actual_vals:
+        assert (expected_value == val)
+
+    #d) banner with searchbox and reflection on results page
+    chrome_driver.get('localhost:8000')
+    #we search for something to pull up the results page
+    element = chrome_driver.find_element_by_name('query')
+    element.send_keys('o' + Keys.RETURN)
+
+    element=chrome_driver.find_element_by_id('banner-with-searchbox-chrome')
+    expected_value='5px'
+    #actual border-radius values are top-left, top-right, and so on
+    actual_val_t_l=element.value_of_css_property('border-top-left-radius')
+    actual_val_t_r=element.value_of_css_property('border-top-right-radius')
+    actual_val_b_r=element.value_of_css_property('border-bottom-right-radius')
+    actual_val_b_l=element.value_of_css_property('border-bottom-left-radius')
+
+    actual_vals=[actual_val_t_l,actual_val_t_r,actual_val_b_r,actual_val_b_l]
+    for val in actual_vals:
+        assert (expected_value == val)
+
+def test_div_container(w_driver, chrome_driver):
+    """Tests whether the div 'container-wide' element is correct size.
+    Test looks at:
+    1.) Firefox:
+    a) Index Page
+    b) About Page
+    2.) Chrome:
+        a) Index Page
+        b) About Page
+
+    """
+    #1.) Firefox
+    #a) Index Page
+    w_driver.get('localhost:8000')
+    #get actual screen width
+    screen_size=w_driver.get_window_size()
+    screen_width=screen_size['width']
+
+    #actual div width
+    element=w_driver.find_element_by_class_name('container-wide')
+    actual_value=element.value_of_css_property('width')
+    #actual_value is something like 800px; we get just the integer
+    actual_value=int(re.match(r'\d+', actual_value).group())
+
+    #we expect the div to be 100% of screen width, but allow 5% error
+    assert (screen_width*0.95 < actual_value)
+    
+    #b) About Page
+    w_driver.get('localhost:8000/about')
+    #get actual screen width
+    screen_size=w_driver.get_window_size()
+    screen_width=screen_size['width']
+
+    #actual div width
+    element=w_driver.find_element_by_class_name('container-wide')
+    actual_value=element.value_of_css_property('width')
+    #actual_value is something like 800px; we get just the integer
+    actual_value=int(re.match(r'\d+', actual_value).group())
+
+    #we expect the div to be 100% of screen width, but allow 5% error
+    assert (screen_width*0.95 < actual_value)
+
+    #2.) Chrome
+    #a) Index Page
+    chrome_driver.get('localhost:8000')
+    #get actual screen width
+    screen_size=w_driver.get_window_size()
+    screen_width=screen_size['width']
+
+    #actual div width
+    element=chrome_driver.find_element_by_class_name('container-wide')
+    actual_value=element.value_of_css_property('width')
+    #actual_value is something like 800px; we get just the integer
+    actual_value=int(re.match(r'\d+', actual_value).group())
+
+    #we expect the div to be 100% of screen width, but allow 5% error
+    assert (screen_width*0.95 < actual_value)
+
+    #b) About Page
+    chrome_driver.get('localhost:8000/about')
+    #get actual screen width
+    screen_size=w_driver.get_window_size()
+    screen_width=screen_size['width']
+
+    #actual div width
+    element=chrome_driver.find_element_by_class_name('container-wide')
+    actual_value=element.value_of_css_property('width')
+    #actual_value is something like 800px; we get just the integer
+    actual_value=int(re.match(r'\d+', actual_value).group())
+
+    #we expect the div to be 100% of screen width, but allow 5% error
+    assert (screen_width*0.95 < actual_value)
+
 
