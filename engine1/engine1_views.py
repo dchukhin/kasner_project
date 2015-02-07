@@ -87,3 +87,7 @@ def another_page(request):
     browser=find_browser(request)
     aaa=request.META['HTTP_USER_AGENT']
     return render(request, 'another_page.html', {'browser': browser, 'aaa':aaa})
+
+def search_stats(request):
+    browser=find_browser(request)
+    return render(request, 'search_stats.html', {'browser': browser})

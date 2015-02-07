@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^add/$', engine1_views.add),
     url(r'^about$', engine1_views.about),
     url(r'^another_page$', engine1_views.another_page),
+    url(r'^search_stats$', engine1_views.search_stats),
 )
