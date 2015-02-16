@@ -7,6 +7,8 @@ from blank_space_remover import bsr
 import twitter_attempt1
 from search_algorithm import algorithm
 from find_browser import find_browser
+from update_search_stats import update_search_stats
+from get_search_stats import get_search_stats
 
 def index(request):
     browser=find_browser(request)
@@ -16,6 +18,8 @@ def kasner(request):
     browser=find_browser(request)
     if 'query' in request.GET and request.GET['query']:
         q=request.GET['query']
+        #update the search stats in db
+        update_search_stats(q, browser)
         #use our search algorithm to get websites for results
         websites = algorithm(request)
         return render (request, 'results_page.html', 
@@ -90,4 +94,6 @@ def another_page(request):
 
 def search_stats(request):
     browser=find_browser(request)
-    return render(request, 'search_stats.html', {'browser': browser})
+    stats=get_search_stats()
+    return render(request, 'search_stats.html', 
+            {'browser': browser, 'stats': stats})
