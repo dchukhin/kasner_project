@@ -55,15 +55,14 @@ def test_search_random_characters(w_driver):
     assert text_found != None
 
 def test_search_case_insensitive(w_driver):
-    """Tests whether case insensitive search yields correct results.
+    """
+    Tests whether case insensitive search yields correct results.
     
     1.) Search for 'yahoo', find 'Yahoo' in results
     2.) Search for Yahoo, find 'Yahoo' in results
     3.) Confirm that results of #1 and #2 are the same
     """
     w_driver.get('localhost:8000')
-    import pdb
-    pdb.set_trace()
     element = w_driver.find_element_by_name('query')
     element.send_keys('yahoo' + Keys.RETURN)
     results1=w_driver.page_source
