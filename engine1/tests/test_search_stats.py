@@ -22,7 +22,6 @@ def chrome_driver(request):
     request.addfinalizer(driver.quit)
     return driver
 
-@pytest.mark.new
 def test_new_search_updates_stats(w_driver):
     """Tests if a Kasner search for a new term is reflected in search stats.
     Composed of 3 parts:
