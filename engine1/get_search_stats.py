@@ -1,5 +1,7 @@
-from models import Search
+from models import SearchTerm, SearchBrowser
 
 def get_search_stats():
-    stats=Search.objects.filter()
+    terms=SearchTerm.objects.filter()
+    browsers=SearchBrowser.objects.filter()
+    stats=[terms, browsers]
     return stats

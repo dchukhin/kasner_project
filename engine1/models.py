@@ -17,9 +17,15 @@ class Website(models.Model):
     def __unicode__(self):
         return '%s %s' %(self.name, self.url)
 
-class Search(models.Model):
+class SearchTerm(models.Model):
     name=models.CharField(max_length=50)
-    browser=models.CharField(max_length=20)
+    count=models.IntegerField()
+
+    def __unicode__(self):
+        return '%s %s' %(self.name, self.count)
+
+class SearchBrowser(models.Model):
+    name=models.CharField(max_length=20)
     count=models.IntegerField()
 
     def __unicode__(self):

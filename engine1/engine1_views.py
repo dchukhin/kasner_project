@@ -95,5 +95,9 @@ def another_page(request):
 def search_stats(request):
     browser=find_browser(request)
     stats=get_search_stats()
+    stats_search_terms=stats[0]
+    stats_browsers=stats[1]
     return render(request, 'search_stats.html', 
-            {'browser': browser, 'stats': stats})
+            {'browser': browser, 
+            'stats_search_terms': stats_search_terms,
+            'stats_browsers': stats_browsers})
