@@ -4,7 +4,6 @@ from xvfbwrapper import Xvfb
 import re
 import pytest
 import datetime
-import pdb
 
 @pytest.fixture(scope="session")
 def w_driver(request):
@@ -57,7 +56,7 @@ def test_add_webpage_to_db(w_driver):
     text_found=re.search(time, results)
 
     assert text_found != None
-@pytest.mark.what
+
 def test_update_website_already_in_db(w_driver):
     """
     Test to update a website that already exists in our database.
@@ -84,7 +83,6 @@ def test_update_website_already_in_db(w_driver):
 
     #Part 2.) we keep the url the same as before, but the name is new_time
     w_driver.get('localhost:8000/add_form')
-    pdb.set_trace()
     new_time=str(datetime.datetime.now()).split('.')[0]
     name_element=w_driver.find_element_by_name('name')
     name_element.send_keys(new_time)
@@ -105,7 +103,16 @@ def test_update_website_already_in_db(w_driver):
     element.send_keys(new_time + Keys.RETURN)
 
     results=w_driver.page_source
-    search_output=new_time+' at www.'+time+'.com'
+
+    #the time, which reads as something like 2014-01-01 12:00:00 will be
+    #shown in the page source as 2014-01-01%2012:00:00.
+    #we create the ref_time variable to match that
+    ref_time=time[0:10]+'%20'+time[11:19]
+
+    #the search output should say the new_time at www.time.com. There is an 
+    #href, so the page source has that in it, as well as a few spaces
+    ref_to_site='\n                <a href="'+'http://www.'+ref_time+'.com'
+    search_output=new_time+' at '+ref_to_site
     new_time_found=re.search(search_output, results)
 
     assert new_time_found != None
