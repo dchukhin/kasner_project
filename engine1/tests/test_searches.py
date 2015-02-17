@@ -50,7 +50,9 @@ def test_search_random_characters(w_driver):
     element.send_keys('!*(&$@' + Keys.RETURN)
 
     results=w_driver.page_source
-    text_found=re.search(r'No results', results)
+    #There should be 2 results found (1. automatically generated Wikipedia 
+    #result and 2. automatically generated Facebook result
+    text_found=re.search(r'Kasner found 2 results', results)
 
     assert text_found != None
 

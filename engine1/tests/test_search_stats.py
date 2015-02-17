@@ -87,18 +87,18 @@ def test_search_updates_stats(w_driver):
     3.) Go to the search stats page and verify that the number of times 'test'
     has been searched for has increased by 1
     """
-    search_term='test'
+    search_term='test!'
     #1.) Go to the search stats page and see how many times the search term
     #'test' has been searched for
     w_driver.get('localhost:8000/search_stats')
     results=w_driver.page_source
-    #we are looking for 'SearchTerm: test' in the page source code
-    text='SearchTerm: test'
-    #find the character that begins the reference to 'SearchTerm: test'
+    #we are looking for 'SearchTerm: test!' in the page source code
+    text='SearchTerm: '+search_term
+    #find the character that begins the reference to 'SearchTerm: test!'
     match = [matches.start()
     for matches in re.finditer(r'{}'.format(re.escape(text)), results)]
     match=match[0]
-    #our text is 16 characters long, then there is a space, then the count,
+    #our text is 17 characters long, then there is a space, then the count,
     #which continues until the '>' character, which is displayed as &gt
     count_begins=(match+17)
     
@@ -114,23 +114,23 @@ def test_search_updates_stats(w_driver):
     #convert count to an integer
     part_1_count=int(count)
 
-    #2.) Go to kasner and search for 'test'
+    #2.) Go to kasner and search for 'test!'
     w_driver.get('localhost:8000')
     element = w_driver.find_element_by_name('query')
     element.send_keys(search_term + Keys.RETURN)
 
-    #3.) Go to the search stats page and verify that the number of times 'test'
+    #3.) Go to the search stats page, verify that the number of times 'test!'
     #has been searched for has increased by 1
     w_driver.get('localhost:8000/search_stats')
 
     results=w_driver.page_source
-    #we are looking for 'SearchTerm: test' in the page source code
-    text='SearchTerm: test'
+    #we are looking for 'SearchTerm: test!' in the page source code
+    text='SearchTerm: '+search_term
     #find the character that begins the reference to 'SearchTerm: test'
     match = [matches.start()
     for matches in re.finditer(r'{}'.format(re.escape(text)), results)]
     match=match[0]
-    #our text is 16 characters long, then there is a space, then the count,
+    #our text is 17 characters long, then there is a space, then the count,
     #which continues until the '>' character, which is displayed as &gt
     count_begins=(match+17)
 
