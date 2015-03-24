@@ -90,7 +90,13 @@ def about(request):
 def another_page(request):
     browser=find_browser(request)
     aaa=request.META['HTTP_USER_AGENT']
-    return render(request, 'another_page.html', {'browser': browser, 'aaa':aaa})
+    stats=get_search_stats()
+    stats_search_terms=stats[0]
+    stats_browsers=stats[1]
+    return render(request, 'another_page.html', 
+            {'browser': browser, 'aaa':aaa, 
+            'stats_search_terms': stats_search_terms,
+            'stats_browsers': stats_browsers})
 
 def search_stats(request):
     browser=find_browser(request)
@@ -101,3 +107,23 @@ def search_stats(request):
             {'browser': browser, 
             'stats_search_terms': stats_search_terms,
             'stats_browsers': stats_browsers})
+
+def another_page2(request):
+    browser=find_browser(request)
+    aaa=request.META['HTTP_USER_AGENT']
+    stats=get_search_stats()
+    stats_search_terms=stats[0]
+    stats_browsers=stats[1]
+    return render(request, 'another_page2.html',
+            {'browser': browser, 'aaa':aaa,
+            'stats_search_terms': stats_search_terms,
+            'stats_browsers': stats_browsers})
+
+def data_search_terms(request):
+    stats=get_search_stats()
+    stats_search_terms=stats[0]
+    return render(request, 'data_search_terms.html',
+            {'stats_search_terms': stats_search_terms})
+
+def results_tabs(request):
+    return render(request, 'results_tabs.html')
