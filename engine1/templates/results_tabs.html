@@ -6,14 +6,19 @@
     <p>Paragraph should load.</p>
     {% verbatim %}
     <div ng-controller = "StatsController as statsApp">
+        <table>
         <h2>Search Terms:</h2>
-        <ul ng-repeat="term in statsApp.terms">
-            <li>{{ term.name }}</li>
-        </ul>
+        <tr ng-repeat="term in statsApp.terms">
+            <td>{{ term.name }}</td>
+            <td>{{ term.count }}</td>
+        </tr>
+        </table>
+        <table>
         <h2>Browsers:</h2>
-        <ul ng-repeat="thing in statsApp.browsers">
-            <li>{{thing.name}}</li>
-        </ul>
+        <tr ng-repeat="browser in statsApp.browsers">
+            <td>{{browser.name}}</td>
+            <td>{{browser.count}}</td>
+        </tr>
     </div>
     {% endverbatim %}
     <script type="text/javascript" src="{{STATIC_URL}}angular.min.js"></script>

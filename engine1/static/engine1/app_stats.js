@@ -9,14 +9,14 @@
     });
 
     var browsers = [
-        {"name":"firefox"},
-        {"name":"chrome"}
+        {"name":"firefox", "count": 20},
+        {"name":"chrome", "count": 10}
     ];
 
     var terms = [
-        {"name":"yahoo"},
-        {"name":"google"},
-        {"name":"ESPN"}
+        {"name":"yahoo", "count":2},
+        {"name":"google", "count":10},
+        {"name":"ESPN","count":3}
     ];
 /*
 
