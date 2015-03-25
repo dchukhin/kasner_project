@@ -4,5 +4,20 @@
 </head>
 <body>
     <p>Paragraph should load.</p>
+    {% verbatim %}
+    <div ng-controller = "StatsController as statsApp">
+        <h2>Search Terms:</h2>
+        <ul ng-repeat="term in statsApp.terms">
+            <li>{{ term.name }}</li>
+        </ul>
+        <h2>Browsers:</h2>
+        <ul ng-repeat="thing in statsApp.browsers">
+            <li>{{thing.name}}</li>
+        </ul>
+    </div>
+    {% endverbatim %}
+    <script type="text/javascript" src="{{STATIC_URL}}angular.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}app_stats.js"></script>
 </body>
+
 </html>
