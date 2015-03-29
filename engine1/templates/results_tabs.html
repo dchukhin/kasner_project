@@ -6,41 +6,31 @@
     <p>Paragraph should load.</p>
     {% verbatim %}
     <div ng-controller = "StatsController as statsApp">
+        <stats-tabs></stats-tabs>
+        <!--
         <div class="tab" ng-controller="TabController as tab">
-            <!--An unordered list, which will be the two tabs: "Search Terms" 
-           and "Browsers".-->
+        <stats-tabs></stats-tabs>
         <ul class="nav nav-pills">
-            <!--Using bootstrap, the Search Terms tab is active if our 
-            isTabSet() method in app_stats.js returns true.-->
             <li ng-class="{active=tab.isTabSet(1)}">
-                <!--The Search Terms tab becomes active on a click from the
-                user by using our setTab() method in app_stats.js..-->
                 <a href ng-click="tab.setTab(1)">Search Terms</a>
             </li>
-            <!-- Using bootstrap, the Browsers tab is active if our 
-            isTabSet() method in app_stats.js returns true.--> 
             <li ng-class="{active:tab.isTabSet(2)}">
-                <!--The Browsers tab becomes active on a click from the user
-                by using our setTab() method in app_stats.js.-->
                 <a href ng-click="tab.setTab(2)">Browsers</a>
             </li>
         </ul>
-                <!--Our table only shows if the Search Terms tab is active.-->
                 <table ng-show="tab.isTabSet(1)">
                     <tr ng-repeat="term in statsApp.terms">
                         <td>{{ term.name }}</td>                                                        <td>{{ term.count }}</td>
                     </tr>
-                <!--Our table only shows if the Browsers tab is active.-->
+                </table>
                 <table ng-show="tab.isTabSet(2)">
                     <tr ng-repeat="browser in statsApp.browsers">
                         <td>{{browser.name}}</td>
                         <td>{{browser.count}}</td>
                     </tr>
                 </table>
-                <br><br>
-        tab is: {{tab}}<br>
-        tab1 is set: {{tab.isTabSet(1)}}
     </div>
+    -->
     </div>
     {% endverbatim %}
     <script type="text/javascript" src="{{STATIC_URL}}angular.min.js"></script>
