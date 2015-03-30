@@ -7,30 +7,6 @@
     {% verbatim %}
     <div ng-controller = "StatsController as statsApp">
         <stats-tabs></stats-tabs>
-        <!--
-        <div class="tab" ng-controller="TabController as tab">
-        <stats-tabs></stats-tabs>
-        <ul class="nav nav-pills">
-            <li ng-class="{active=tab.isTabSet(1)}">
-                <a href ng-click="tab.setTab(1)">Search Terms</a>
-            </li>
-            <li ng-class="{active:tab.isTabSet(2)}">
-                <a href ng-click="tab.setTab(2)">Browsers</a>
-            </li>
-        </ul>
-                <table ng-show="tab.isTabSet(1)">
-                    <tr ng-repeat="term in statsApp.terms">
-                        <td>{{ term.name }}</td>                                                        <td>{{ term.count }}</td>
-                    </tr>
-                </table>
-                <table ng-show="tab.isTabSet(2)">
-                    <tr ng-repeat="browser in statsApp.browsers">
-                        <td>{{browser.name}}</td>
-                        <td>{{browser.count}}</td>
-                    </tr>
-                </table>
-    </div>
-    -->
     </div>
     {% endverbatim %}
     <script type="text/javascript" src="{{STATIC_URL}}angular.min.js"></script>

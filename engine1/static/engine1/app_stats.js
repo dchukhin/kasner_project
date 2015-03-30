@@ -22,19 +22,7 @@
             controllerAs: 'tab'
         };
     });
-/* 
-    app.controller('TabController', function(){
-        this.tab=1;
 
-        this.setTab = function(tabToSet){
-            this.tab = tabToSet;
-        };
-
-        this.isTabSet = function(tabToCheck){
-            return this.tab === tabToCheck;
-        };
-    });
-*/
     var browsers = [
         {"name":"firefox", "count": 20},
         {"name":"chrome", "count": 10}
@@ -45,19 +33,5 @@
         {"name":"google", "count":10},
         {"name":"ESPN","count":3}
     ];
-/*
 
-        {"browsers":[
-            {"name":"firefox"},
-            {"name":"chrome"}
-            ]
-        },
-        {"terms":[
-            {"name":"google"},
-            {"name":"yahoo"},
-            {"name":"ESPN"}
-            ]
-        }       
-        ]
-*/
 })();
