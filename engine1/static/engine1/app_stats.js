@@ -1,11 +1,25 @@
 (function(){
     var app = angular.module("statsApp", []);
-
-    app.controller('StatsController', function(){
-        this.browsers = browsers;
-        this.terms = terms;
-    });
     
+    app.controller('StatsController', ['$http', function($http){
+        /*Initialize variables as empty arrays so the initial load doesn't 
+         * create errors.*/
+        var stats = this;
+        stats.browsers = [];
+        stats.terms = [];
+
+        /*Use $http.get() to fetch our JSON data for browsers.*/
+        $http.get('stats_browsers').success(function(data){
+            stats.browsers = data;
+        });
+
+        /*Use $http.get() to fetch our JSON data for search terms.*/
+        $http.get('stats_terms').success(function(data){
+            stats.terms = data;
+        });
+
+    }]);
+
     app.directive('statsTabs', function(){
         return {
             restrict: 'E',
@@ -22,16 +36,5 @@
             controllerAs: 'tab'
         };
     });
-
-    var browsers = [
-        {"name":"firefox", "count": 20},
-        {"name":"chrome", "count": 10}
-    ];
-
-    var terms = [
-        {"name":"yahoo", "count":2},
-        {"name":"google", "count":10},
-        {"name":"ESPN","count":3}
-    ];
-
+    
 })();

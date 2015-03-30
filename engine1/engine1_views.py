@@ -127,3 +127,12 @@ def data_search_terms(request):
 
 def results_tabs(request):
     return render(request, 'results_tabs.html')
+
+def stats_tabs(request):
+    return render(request, 'stats-tabs.html')
+
+def stats_browsers(request):
+    return render(request, 'stats_browsers.json')
+
+def stats_terms(request):
+    return render(request, 'stats_terms.json')
