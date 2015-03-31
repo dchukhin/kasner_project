@@ -9,6 +9,7 @@ from search_algorithm import algorithm
 from find_browser import find_browser
 from update_search_stats import update_search_stats
 from get_search_stats import get_search_stats
+import write_search_stats
 
 def index(request):
     browser=find_browser(request)
@@ -121,9 +122,14 @@ def another_page2(request):
 
 def data_search_terms(request):
     stats=get_search_stats()
-    stats_search_terms=stats[0]
-    return render(request, 'data_search_terms.html',
-            {'stats_search_terms': stats_search_terms})
+    print stats
+    stats_search_terms=stats
+    import json
+    stats_search_terms=json.dumps(stats_search_terms)
+    print stats_search_terms
+    print '\n',' stats are: \n', stats
+    return render(request, 'data_search_terms.json',
+            {'stats_search_terms': stats})
 
 def results_tabs(request):
     return render(request, 'results_tabs.html')
@@ -132,7 +138,10 @@ def stats_tabs(request):
     return render(request, 'stats-tabs.html')
 
 def stats_browsers(request):
+    write_search_stats.write_browser_stats()
     return render(request, 'stats_browsers.json')
 
 def stats_terms(request):
+    #Fetch current stats form DB.
+    write_search_stats.write_search_terms_stats()
     return render(request, 'stats_terms.json')
