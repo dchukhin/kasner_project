@@ -99,40 +99,6 @@ def another_page(request):
             'stats_search_terms': stats_search_terms,
             'stats_browsers': stats_browsers})
 
-"""
-def search_stats(request):
-    browser=find_browser(request)
-    stats=get_search_stats()
-    stats_search_terms=stats[0]
-    stats_browsers=stats[1]
-    return render(request, 'search_stats.html', 
-            {'browser': browser, 
-            'stats_search_terms': stats_search_terms,
-            'stats_browsers': stats_browsers})
-
-def another_page2(request):
-    browser=find_browser(request)
-    aaa=request.META['HTTP_USER_AGENT']
-    stats=get_search_stats()
-    stats_search_terms=stats[0]
-    stats_browsers=stats[1]
-    return render(request, 'another_page2.html',
-            {'browser': browser, 'aaa':aaa,
-            'stats_search_terms': stats_search_terms,
-            'stats_browsers': stats_browsers})
-
-def data_search_terms(request):
-    stats=get_search_stats()
-    print stats
-    stats_search_terms=stats
-    import json
-    stats_search_terms=json.dumps(stats_search_terms)
-    print stats_search_terms
-    print '\n',' stats are: \n', stats
-    return render(request, 'data_search_terms.json',
-            {'stats_search_terms': stats})
-"""
-
 def search_stats(request):
     return render(request, 'search_stats.html')
 
