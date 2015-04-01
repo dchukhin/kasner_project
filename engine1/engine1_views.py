@@ -99,6 +99,7 @@ def another_page(request):
             'stats_search_terms': stats_search_terms,
             'stats_browsers': stats_browsers})
 
+"""
 def search_stats(request):
     browser=find_browser(request)
     stats=get_search_stats()
@@ -130,9 +131,10 @@ def data_search_terms(request):
     print '\n',' stats are: \n', stats
     return render(request, 'data_search_terms.json',
             {'stats_search_terms': stats})
+"""
 
-def results_tabs(request):
-    return render(request, 'results_tabs.html')
+def search_stats(request):
+    return render(request, 'search_stats.html')
 
 def stats_tabs(request):
     return render(request, 'stats-tabs.html')
