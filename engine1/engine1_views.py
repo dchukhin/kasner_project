@@ -8,7 +8,6 @@ import twitter_attempt1
 from search_algorithm import algorithm
 from find_browser import find_browser
 from update_search_stats import update_search_stats
-from get_search_stats import get_search_stats
 import write_search_stats
 
 def index(request):
@@ -91,13 +90,8 @@ def about(request):
 def another_page(request):
     browser=find_browser(request)
     aaa=request.META['HTTP_USER_AGENT']
-    stats=get_search_stats()
-    stats_search_terms=stats[0]
-    stats_browsers=stats[1]
     return render(request, 'another_page.html', 
-            {'browser': browser, 'aaa':aaa, 
-            'stats_search_terms': stats_search_terms,
-            'stats_browsers': stats_browsers})
+            {'browser': browser, 'aaa':aaa})
 
 def search_stats(request):
     return render(request, 'search_stats.html')
