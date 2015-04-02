@@ -15,4 +15,7 @@ urlpatterns = patterns('',
     url(r'^about$', engine1_views.about),
     url(r'^another_page$', engine1_views.another_page),
     url(r'^search_stats$', engine1_views.search_stats),
+    url(r'^stats-tabs$', engine1_views.stats_tabs),
+    url(r'^stats_browsers$', engine1_views.stats_browsers),
+    url(r'^stats_terms$', engine1_views.stats_terms),
 )
