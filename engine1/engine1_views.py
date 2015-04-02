@@ -106,10 +106,11 @@ def stats_tabs(request):
     return render(request, 'stats-tabs.html')
 
 def stats_browsers(request):
-    write_search_stats.write_browser_stats()
+    #Fetch current stats from DB and write a JSON file of them.
+    write_search_stats.write('browsers','templates')
     return render(request, 'stats_browsers.json')
 
 def stats_terms(request):
-    #Fetch current stats form DB.
-    write_search_stats.write_search_terms_stats()
+    #Fetch current stats form DB and write a JSON file of them.
+    write_search_stats.write('search_terms', 'templates')
     return render(request, 'stats_terms.json')
