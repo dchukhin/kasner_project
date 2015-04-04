@@ -1,6 +1,17 @@
 from models import SearchTerm, SearchBrowser
 import json
 
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'kasner.settings'
+import django
+django.setup()
+
+#Set variable for template directory
+from django.conf import settings
+base_directory = settings.BASE_DIR
+template_directory = base_directory + '/engine1/templates/'
+
+
 def write(for_what, folder):
     """
     This function calls the other functions in this file. It seemed easier to 
@@ -32,7 +43,7 @@ def write_search_terms_stats():
     the terms to make them readable, and then write them to the file.
     """
     #Open a new file for writing.
-    file=open('./engine1/templates/stats_terms.json', 'w')
+    file=open(template_directory + 'stats_terms.json', 'w')
     #Begin the list.
     file.write('[')
     #For each term in the list we write it into the file.
@@ -44,7 +55,6 @@ def write_search_terms_stats():
     #The final term is blank.
     file.write('{}]')
     file.close()
-    print 'search terms success'
 
 def write_browser_stats():
     """
@@ -57,7 +67,7 @@ def write_browser_stats():
     change the terms to make them readable, and then write them to the file.
     """
     #Open a new file for writing.
-    file=open('./engine1/templates/stats_browsers.json', 'w')
+    file=open(template_directory + 'stats_browsers.json', 'w')
     #Begin the list.
     file.write('[')
     #For each term in the list we write it into the file.
