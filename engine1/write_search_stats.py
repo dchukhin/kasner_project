@@ -43,18 +43,20 @@ def write_search_terms_stats():
     the terms to make them readable, and then write them to the file.
     """
     #Open a new file for writing.
-    file=open(template_directory + 'stats_terms.json', 'w')
+    stats_file=open(template_directory + 'stats_terms.json', 'w')
     #Begin the list.
-    file.write('[')
+    stats_file.write('[')
     #For each term in the list we write it into the file.
     for term in terms:
         new_term={"name":term.name, "count":term.count}
-        file.write(str(json.dumps(new_term)))
+        stats_file.write(str(json.dumps(new_term)))
         #Add a comma between each term.
-        file.write(',')
-    #The final term is blank.
-    file.write('{}]')
-    file.close()
+        stats_file.write(',')
+    #Currently, the last character in the file is a comma; we remove it.
+    stats_file.seek(-1, os.SEEK_END)
+    stats_file.truncate()
+    stats_file.write(']')
+    stats_file.close()
 
 def write_browser_stats():
     """
@@ -67,15 +69,17 @@ def write_browser_stats():
     change the terms to make them readable, and then write them to the file.
     """
     #Open a new file for writing.
-    file=open(template_directory + 'stats_browsers.json', 'w')
+    stats_file=open(template_directory + 'stats_browsers.json', 'w')
     #Begin the list.
-    file.write('[')
+    stats_file.write('[')
     #For each term in the list we write it into the file.
     for browser in browsers:
         new_browser_term={"name":browser.name, "count":browser.count}
-        file.write(str(json.dumps(new_browser_term)))
+        stats_file.write(str(json.dumps(new_browser_term)))
         #Add a comma between each term.
-        file.write(',')
-        #The final term is blank.
-    file.write('{}]')
-    file.close()
+        stats_file.write(',')
+    #Currently, the last character in the file is a comma; we remove it.
+    stats_file.seek(-1, os.SEEK_END)
+    stats_file.truncate()
+    stats_file.write(']')
+    stats_file.close()
