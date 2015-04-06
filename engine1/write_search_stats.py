@@ -52,8 +52,10 @@ def write_search_terms_stats():
         file.write(str(json.dumps(new_term)))
         #Add a comma between each term.
         file.write(',')
-    #The final term is blank.
-    file.write('{}]')
+    #Currently, the last character in the file is a comma; we remove it.
+    file.seek(-1, os.SEEK_END)
+    file.truncate()
+    file.write(']')
     file.close()
 
 def write_browser_stats():
