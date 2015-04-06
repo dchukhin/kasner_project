@@ -46,8 +46,6 @@ def test_write_json_file_for_browsers_templates():
     for browser in browsers:
         browser = {"name":browser.name, "count":browser.count}
         browsers_list.append(browser)
-    #Our last term is blank, so we add {} to match
-    browsers_list.append({})
 
     #b) get values from stats_browsers
     base_directory = settings.BASE_DIR
