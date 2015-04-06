@@ -50,9 +50,9 @@ def test_write_json_file_for_browsers_templates():
     #b) get values from stats_browsers
     base_directory = settings.BASE_DIR
     template_directory = base_directory + '/engine1/templates/'
-    browser_file = 'stats_browsers.json'
-    file=open(template_directory + browser_file, 'r')
-    contents_of_file = file.read()
+    browser_file_name = 'stats_browsers.json'
+    browser_file=open(template_directory + browser_file_name, 'r')
+    contents_of_file = browser_file.read()
     #the contents of the file will be read as a string; convert to JSON
     json_file = json.loads(contents_of_file)
 
