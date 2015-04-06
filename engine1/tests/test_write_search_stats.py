@@ -67,6 +67,65 @@ def test_write_json_file_for_browsers_templates():
     for element in browsers_list:
         assert element in json_file
 
+def test_write_json_file_for_search_terms_templates():
+    """
+    This test attempts to call write_search_stats to write a JSON file for the
+    stats in the DB, with the first argument as 'search_terms' and the second 
+    argument as 'templates'.
+    write_search_terms accepts 2 arguments:
+        1. The first must be 'browsers' or 'search_terms'
+        2. The second must be 'templates'
+    There should be no error message raised.
+    This test:
+        1.) Verifies no errors are raised when calling write_search_stats with 
+        'search_terms' and 'templates' as the arguments.
+        2.) Verifies stats_browsers.json file created by write_search_terms 
+        matches the output from DB.
+    """
+    """
+    1.) Verifies no errors are raised when calling write_search_stats with 
+       'search_terms' and 'templates' as the arguments.
+    """
+    term = 'search_terms'
+    folder = 'templates'
+    try:
+        write_search_stats.write(term, folder)
+    except ValueError:
+        pytest.fail("Unexpected Error")
+
+    """
+    2.) Verifies the stats_terms.json file created by write_search_terms 
+       matches the output from DB.
+    """
+    #a)Get values from db
+    from ..models import SearchTerm
+    search_terms = list(SearchTerm.objects.filter())
+    #Change the search terms to just the names and the counts
+    search_terms_list = []
+    for search_term in search_terms:
+        search_term = {"name":search_term.name, "count":search_term.count}
+        search_terms_list.append(search_term)
+
+    #b)Get values from stats_browsers
+    base_directory = settings.BASE_DIR
+    template_directory = base_directory + '/engine1/templates/'
+    terms_file_name = 'stats_terms.json'
+    terms_file=open(template_directory + terms_file_name, 'r')
+    contents_of_file = terms_file.read()
+    #the contents of the file will be read as a string; convert to JSON
+    json_file = json.loads(contents_of_file)
+
+    """
+    c) check that a) and b) are the same:
+        i) check that length of list in part a ==  length of list in part b
+        ii) check for each element from part a is in list in part b
+    """
+    #i) check that length of list in part a ==  length of list in part b
+    assert (len(search_terms_list) == len(json_file))
+    #ii) check for each element from part a is in list in part b
+    for element in search_terms_list:
+        assert element in json_file
+
 def test_write_json_file_for_incorrect_db_term():
     """
     This test attempts to call write_search_stats to write a JSON file for the
