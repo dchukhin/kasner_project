@@ -8,19 +8,33 @@
         <a href ng-click="tab.setTab(2)">Browsers</a>
     </li>
 </ul>
-<div>
+
+<!-- Two separate search forms, one for search terms and one for browsers.
+Only one shows up at a time, so that the searchString from search terms and 
+the searchString from browsers don't affect each other.-->
+<div ng-show="tab.isTabSet(1)">
     <p>Use the following search to search through all of the search terms.</p>
     <!-- Search form. -->
-    <input type='text' ng-model="searchString "placeholder='Enter search'>
+    <input type='text' ng-model="searchStringTerms "placeholder='Enter search'>
 </div>
 
+<div ng-show="tab.isTabSet(2)">
+    <p>Use the following search to search through all of the search terms.</p>
+    <!-- Search form. -->
+    <input type='text' ng-model="searchStringBrowsers" 
+    placeholder='Enter search'>
+</div>
+
+
 <table ng-show="tab.isTabSet(1)">
-    <tr ng-repeat="term in statsApp.terms | searchFilter:searchString | orderBy: '-count'">
+    <tr ng-repeat="term in statsApp.terms | searchFilter:searchStringTerms
+        | orderBy: '-count'">
         <td>{{ term.name }}</td>                                                        <td>{{ term.count }}</td>
     </tr>
 </table>
 <table ng-show="tab.isTabSet(2)">
-    <tr ng-repeat="browser in statsApp.browsers | orderBy: '-count'">
+    <tr ng-repeat="browser in statsApp.browsers 
+        | searchFilter:searchStringBrowsers | orderBy: '-count'">
         <td>{{browser.name}}</td>
         <td>{{browser.count}}</td>
     </tr>
