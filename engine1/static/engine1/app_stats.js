@@ -37,6 +37,7 @@
         };
     });
     
+    /*A filter for filtering the search stats based on user input.*/
     app.filter('searchFilter', function(){
         /*Filters must return a function. Here array is our array of all the 
          * search stats, and searchString is the user input.*/
