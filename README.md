@@ -12,3 +12,4 @@ Currently, our project utilizes the following:
 * Django as the web framework
 * PostgreSQL as the database
 * AngulasJS for displaying search stats
+* Pytest and Selenium WebDriver for testing
