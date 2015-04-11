@@ -15,7 +15,7 @@
 </div>
 
 <table ng-show="tab.isTabSet(1)">
-    <tr ng-repeat="term in statsApp.terms | searchFilter:searchString">
+    <tr ng-repeat="term in statsApp.terms | searchFilter:searchString | orderBy: '-count'">
         <td>{{ term.name }}</td>                                                        <td>{{ term.count }}</td>
     </tr>
 </table>
