@@ -11,12 +11,12 @@
 
 
 <table ng-show="tab.isTabSet(1)">
-    <tr ng-repeat="term in statsApp.terms">
+    <tr ng-repeat="term in statsApp.terms | orderBy: '-count'">
         <td>{{ term.name }}</td>                                                        <td>{{ term.count }}</td>
     </tr>
 </table>
 <table ng-show="tab.isTabSet(2)">
-    <tr ng-repeat="browser in statsApp.browsers">
+    <tr ng-repeat="browser in statsApp.browsers | orderBy: '-count'">
         <td>{{browser.name}}</td>
         <td>{{browser.count}}</td>
     </tr>
